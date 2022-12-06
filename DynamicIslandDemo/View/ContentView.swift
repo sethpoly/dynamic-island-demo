@@ -25,66 +25,97 @@ struct ContentView: View {
 
 private struct DynamicIsland: View {
     @State private var currentTimestamp = 0.0
+    @State private var isCollapsed = true
     let song: Song
     var backgroundColor: Color = .black
     
     var body: some View {
         ZStack(alignment: .top) {
             backgroundColor
-            VStack(alignment: .leading) {
+            if isCollapsed {
                 HStack {
                     // MARK: Album image
                     Image("smash_mouth_album")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 64, height: 64)
-                        .cornerRadius(16)
-                    
-                    VStack(alignment: .leading) {
-                        // MARK: Song name
-                        Text(song.name)
-                            .foregroundColor(.white)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                        
-                        // MARK: Artist
-                        Text(song.artist)
-                            .foregroundColor(.white.opacity(0.7))
-                    }
+                        .frame(width: 48, height: 48)
+                        .cornerRadius(100)
                     
                     Spacer()
-                    
-                    // MARK: Audio display
                     AudioVisualizer()
                 }
-                .padding(.horizontal, 16)
-                
-                // MARK: Scrubber
-                HStack {
-                    Text("\(currentTimestamp.minutes)")
-                    Scrubber(value: $currentTimestamp, maxValue: song.length)
-                    Text("\(song.length.minutes)")
+                .frame(width: 200)
+                .padding()
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    toggleDisplay()
                 }
-                .foregroundColor(.white.opacity(0.7))
-                .padding(.horizontal, 16)
-                
-                // MARK: RW/PLAY/FF
-                HStack(spacing: 32) {
-                    MediaButton(mediaAction: .rewind)
-                        .frame(width: 32)
-                    MediaButton(mediaAction: .pause)
-                        .frame(width: 32)
-                    MediaButton(mediaAction: .fastForward)
-                        .frame(width: 32)
+            } else {
+                VStack(alignment: .leading) {
+                    HStack {
+                        // MARK: Album image
+                        Image("smash_mouth_album")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 64, height: 64)
+                            .cornerRadius(16)
+                        
+                        VStack(alignment: .leading) {
+                            // MARK: Song name
+                            Text(song.name)
+                                .foregroundColor(.white)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            
+                            // MARK: Artist
+                            Text(song.artist)
+                                .foregroundColor(.white.opacity(0.7))
+                        }
+                        
+                        Spacer()
+                        
+                        // MARK: Audio display
+                        AudioVisualizer()
+                    }
+                    .padding(.horizontal, 16)
+                    
+                    // MARK: Scrubber
+                    HStack {
+                        Text("\(currentTimestamp.minutes)")
+                        Scrubber(value: $currentTimestamp, maxValue: song.length)
+                        Text("\(song.length.minutes)")
+                    }
+                    .foregroundColor(.white.opacity(0.7))
+                    .padding(.horizontal, 16)
+                    
+                    // MARK: RW/PLAY/FF
+                    HStack(spacing: 32) {
+                        MediaButton(mediaAction: .rewind)
+                            .frame(width: 32)
+                        MediaButton(mediaAction: .pause)
+                            .frame(width: 32)
+                        MediaButton(mediaAction: .fastForward)
+                            .frame(width: 32)
 
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
+                .padding()
+                .padding(.vertical, 16)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    toggleDisplay()
+                }
             }
-            .padding()
-            .padding(.vertical, 16)
         }
         .cornerRadius(48)
-        .fixedSize(horizontal: false, vertical: true)
+        .fixedSize(horizontal: isCollapsed, vertical: true)
+    }
+    
+    func toggleDisplay() {
+        withAnimation(.linear(duration: 0.2)) {
+            isCollapsed.toggle()
+        }
     }
 }
 
