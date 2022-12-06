@@ -8,23 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var currentTimestamp = 0.0
+    let song = Song(name: "All Star", artist: "Smash Mouth", length: 120.0)
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color.white.ignoresSafeArea()
             DynamicIsland(
-                song: Song(
-                    name: "All Star",
-                    artist: "Smash Mouth",
-                    length: 120.0
-                )
+                currentTimestamp: $currentTimestamp,
+                song: song
             )
             .padding()
+            .onReceive(timer) { input in
+                if currentTimestamp >= song.length {
+                    return
+                }
+                currentTimestamp += 1.0
+            }
         }
     }
 }
 
 private struct DynamicIsland: View {
-    @State private var currentTimestamp = 0.0
+    @Binding var currentTimestamp: Double
     @State private var isCollapsed = true
     let song: Song
     var backgroundColor: Color = .black

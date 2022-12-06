@@ -18,6 +18,7 @@
 		BA5A1A18293EDCFF00D3776F /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5A1A17293EDCFF00D3776F /* Song.swift */; };
 		BA5A1A1F293EDEE700D3776F /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5A1A1E293EDEE700D3776F /* Double+Extension.swift */; };
 		BA5A1A21293EE09D00D3776F /* MediaAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5A1A20293EE09D00D3776F /* MediaAction.swift */; };
+		BA5A1A26293F7B9100D3776F /* TimeCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5A1A25293F7B9100D3776F /* TimeCounter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		BA5A1A17293EDCFF00D3776F /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		BA5A1A1E293EDEE700D3776F /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		BA5A1A20293EE09D00D3776F /* MediaAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAction.swift; sourceTree = "<group>"; };
+		BA5A1A25293F7B9100D3776F /* TimeCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCounter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 			children = (
 				BA5A1A17293EDCFF00D3776F /* Song.swift */,
 				BA5A1A20293EE09D00D3776F /* MediaAction.swift */,
+				BA5A1A25293F7B9100D3776F /* TimeCounter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				BA5A19EE293E312800D3776F /* ContentView.swift in Sources */,
 				BA5A19EC293E312800D3776F /* DynamicIslandDemoApp.swift in Sources */,
 				BA5A1A1F293EDEE700D3776F /* Double+Extension.swift in Sources */,
+				BA5A1A26293F7B9100D3776F /* TimeCounter.swift in Sources */,
 				BA5A1A16293EDBDF00D3776F /* UISliderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
