@@ -106,7 +106,6 @@
 			children = (
 				BA5A19EF293E312D00D3776F /* Assets.xcassets */,
 				BA5A1A1D293EDECF00D3776F /* Extension */,
-				BA5A1A1C293EDE6600D3776F /* Resource */,
 				BA5A1A1B293EDE5800D3776F /* View */,
 				BA5A1A1A293EDE4D00D3776F /* Component */,
 				BA5A1A19293EDE4900D3776F /* Model */,
@@ -165,13 +164,6 @@
 				BA5A19ED293E312800D3776F /* ContentView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		BA5A1A1C293EDE6600D3776F /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resource;
 			sourceTree = "<group>";
 		};
 		BA5A1A1D293EDECF00D3776F /* Extension */ = {
