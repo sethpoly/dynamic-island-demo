@@ -15,22 +15,12 @@ struct ContentView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Color.white.ignoresSafeArea()
-            DynamicIsland(
-                currentTimestamp: $currentTimestamp,
-                song: song
-            )
-            .padding()
-            .onReceive(timer) { input in
-                if currentTimestamp >= song.length {
-                    return
-                }
-                currentTimestamp += 1.0
-            }
+            
         }
     }
 }
 
-private struct DynamicIsland: View {
+struct DynamicIsland: View {
     @Binding var currentTimestamp: Double
     @State private var isCollapsed = true
     let song: Song
@@ -49,6 +39,8 @@ private struct DynamicIsland: View {
                         .cornerRadius(100)
                     
                     Spacer()
+                    
+                    // MARK: Audio Visualizer
                     AudioVisualizer()
                 }
                 .frame(width: 200)
@@ -64,8 +56,8 @@ private struct DynamicIsland: View {
                         Image("smash_mouth_album")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 64, height: 64)
-                            .cornerRadius(16)
+                            .frame(width: 48, height: 48)
+                            .cornerRadius(100)
                         
                         VStack(alignment: .leading) {
                             // MARK: Song name
@@ -78,13 +70,12 @@ private struct DynamicIsland: View {
                             Text(song.artist)
                                 .foregroundColor(.white.opacity(0.7))
                         }
-                        
                         Spacer()
                         
-                        // MARK: Audio display
+                        // MARK: Audio Visualizer
                         AudioVisualizer()
                     }
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, 14)
                     
                     // MARK: Scrubber
                     HStack {
@@ -95,7 +86,7 @@ private struct DynamicIsland: View {
                     .foregroundColor(.white.opacity(0.7))
                     .padding(.horizontal, 16)
                     
-                    // MARK: RW/PLAY/FF
+                    // MARK: RW/PAUSE/FF
                     HStack(spacing: 32) {
                         MediaButton(mediaAction: .rewind)
                             .frame(width: 32)
@@ -103,7 +94,6 @@ private struct DynamicIsland: View {
                             .frame(width: 32)
                         MediaButton(mediaAction: .fastForward)
                             .frame(width: 32)
-
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
                 }
@@ -126,6 +116,21 @@ private struct DynamicIsland: View {
     }
 }
 
+struct MediaButton: View {
+    let mediaAction: MediaAction
+    var onClick: () -> Void = {}
+    
+    var body: some View {
+        Button(action: onClick) {
+            Image(systemName: mediaAction.image)
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(.white)
+        }
+    }
+}
+
 struct Scrubber: View {
     @Binding var value: Double
     let maxValue: Double
@@ -136,7 +141,8 @@ struct Scrubber: View {
             minValue: 0.0,
             maxValue: maxValue,
             thumbColor: .clear,
-            minTrackColor: .white, maxTrackColor: .gray
+            minTrackColor: .white,
+            maxTrackColor: .gray
         )
     }
 }
@@ -152,7 +158,7 @@ struct AudioVisualizer: View {
                     .animation(animation.speed(Double.random(in: 1.2...1.7)), value: drawingHeight)
             }
         }
-        .onAppear{
+        .onAppear() {
             drawingHeight.toggle()
         }
     }
@@ -167,21 +173,6 @@ struct AudioVisualizer: View {
     
     var animation: Animation {
         return .linear(duration: 0.5).repeatForever()
-    }
-}
-
-struct MediaButton: View {
-    let mediaAction: MediaAction
-    var onClick: () -> Void = {}
-    
-    var body: some View {
-        Button(action: onClick) {
-            Image(systemName: mediaAction.image)
-                .renderingMode(.template)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(.white)
-        }
     }
 }
 
